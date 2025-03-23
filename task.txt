@@ -1,0 +1,18 @@
+Coba sekarang bikin Api sederhana 
+
+-Login
+-Register 
+-Daftar mahasiswa
+-Daftar dosen
+-Daftar mata kuliah
+-Dosen punya relasi dgn matakuliah, jadi dosen itu ngarjar apa
+-Daftar kelas, jadi mahasiswa ini sekarang ada di kelas apa
+
+-----------------------------------------------------------------
+Step:
+
+.Create folder sisfo-api
+.Open on vscode
+.Initialization npm [npm init -y]
+.Initialization git for version controll system [git init]
+.
