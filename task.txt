@@ -25,4 +25,4 @@ Step:
     [git remote add origin https://github.com/mimamc95/sisfo-api.git]
     [git branch -M master]
     [git push -u origin master]
-.
+.Create folder routes & create index.js

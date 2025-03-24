@@ -1,9 +1,14 @@
 const express = require('express')
 
+// define
 const app = express()
 const port = 3333
+const router = require('./routes/index')
 
-// representation of database of students
+
+app.use(express.json())
+app.use(router)
+// array of object for representation of database students
 const students = [
     { id: 1, nama: 'Rega Jeatreya', nim: 160801, jurusan: 'TI' },
     { id: 2, nama: 'Adelia Putri', nim: 160802, jurusan: 'TI' },
@@ -20,7 +25,7 @@ app.get('/', (req, res) => {
     // res.send('<h1>Hello World</h1>')
 })
 
-// create router students
+// create router endpoint  students for read all data students
 app.get('/students', (req, res) => {
     // get data from data from database students
     const dataStd = students
@@ -33,9 +38,29 @@ app.get('/students', (req, res) => {
     res.json(result)
 })
 
-app.get('/users/:id', (req, res) => {
+
+// create router endpoint  students for read data students by id
+app.get('/students/:id', (req, res) => {
     // console.log(req.params)
     const { id } = req.params
+
+
+    let student
+    // proccessing data or looping data student
+    for (let i = 0; i < students.length; i++) {
+        // if data student id === id on req.params, save / use that data 
+        if (students[i].id === Number(id)){
+            student = students[i]
+        }
+            
+    }
+
+    // return response to client
+    res.json({
+        status: 'Ok',
+        data: student
+    })
+
     res.send(`This is users with id ${id}`)
 })
 app.listen(port, () => console.log(`Server running on port ${port}`))
