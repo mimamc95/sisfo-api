@@ -1,4 +1,6 @@
-Coba sekarang bikin Api sederhana 
+Task:
+
+Bikin Api sederhana,
 
 -Login
 -Register 
@@ -8,11 +10,19 @@ Coba sekarang bikin Api sederhana
 -Dosen punya relasi dgn matakuliah, jadi dosen itu ngarjar apa
 -Daftar kelas, jadi mahasiswa ini sekarang ada di kelas apa
 
------------------------------------------------------------------
+------------------------------------------------------------------------
 Step:
 
-.Create folder sisfo-api
-.Open on vscode
+.Create folder sisfo-api & open to vscode 
 .Initialization npm [npm init -y]
+.Create .gitignore so that dependencies aren't uploaded to git/github [node_modules]
+.Create index.js
+.Install express js using npm [npm i express]
+.Use library express on index.js 
+.Install package nodemon so that server not have restart when any there changes code [npm i nodemon -D]
 .Initialization git for version controll system [git init]
+.Create new repo on github and then initialization git remote  
+    [git remote add origin https://github.com/mimamc95/sisfo-api.git]
+    [git branch -M master]
+    [git push -u origin master]
 .
