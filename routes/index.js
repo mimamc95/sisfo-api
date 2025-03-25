@@ -1,11 +1,10 @@
-// implementation plugin route from express
+const { findAllStudent } = require('../controller/studentController')
+
+// implementation plugin routes from express
 const router = require('express').Router()
 
-// create router GET /students
-router.get('/students', (req, res) => {
-    res.json({
-        message: 'Ini dari router Get student'
-    })
-})
+// create router GET /students, get data from studentController
+router.get('/students', findAllStudent)
 
+// export file router from other file
 module.exports = router
