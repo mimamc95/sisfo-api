@@ -26,3 +26,7 @@ Step:
     [git branch -M master]
     [git push -u origin master]
 .Create folder routes & create index.js
+    #getStudentById
+    .Make dir routes, create router endpoint into index.js, create function for controller getStudentById
+    .Make dir controller, create function getStudentById
+    .Implementation & using into routes/index.js

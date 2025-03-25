@@ -12,48 +12,12 @@ app.use(express.json())
 app.use(router)
 
 
-
 app.get('/', (req, res) => {
     // create content type res.json for produce api
     res.json({ message: "hello world" })
 
     // create content type res.send for pruduce html
     // res.send('<h1>Hello World</h1>')
-})
-
-
-
-// create router endpoint  students for read data students by id
-app.get('/students/:id', (req, res) => {
-    // get request params
-    const { id } = req.params
-
-
-    let student
-    // proccessing data or looping data student
-    for (let i = 0; i < students.length; i++) {
-        // if data student id === id on req.params, save / use that data 
-        if (students[i].id === Number(id)) {
-            student = students[i]
-        }
-
-    }
-
-    // if data student undifined, send status 404 not found
-    if (student == undefined) {
-        return res.status(404).json({
-            status: 'Failed',
-            message: `Data student with id ${id} is not found`
-        })
-    }
-
-    // return response to client
-    res.json({
-        status: 'Ok',
-        data: student
-    })
-
-    res.send(`This is users with id ${id}`)
 })
 
 

@@ -20,7 +20,38 @@ const findAllStudent = (req, res) => {
     }
     res.json(result)
 
-
 }
 
-module.exports = { findAllStudent }
+// create router endpoint  students for read data student by id
+const getStudentbyId = (req, res) => {
+    // get request params
+    const { id } = req.params
+
+
+    let student
+    // proccessing data or looping data student
+    for (let i = 0; i < students.length; i++) {
+        // if data student id === id on req.params, save / use that data 
+        if (students[i].id === Number(id)) {
+            student = students[i]
+        }
+
+    }
+
+    // if data student undifined, send status 404 not found
+    if (student == undefined) {
+        return res.status(404).json({
+            status: 'Failed',
+            message: `Data student with id ${id} is not found`
+        })
+    }
+
+    // return response to client with json/api
+    res.json({
+        status: 'Ok',
+        data: student
+    })
+}
+
+// export controller functions so they can be accessed in other files
+module.exports = { findAllStudent, getStudentbyId }
