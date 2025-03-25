@@ -20,6 +20,7 @@ Step:
 .Install express js using npm [npm i express]
 .Use library express on index.js 
 .Install package nodemon so that server not have restart when any there changes code [npm i nodemon -D]
+
 .Initialization git for version controll system [git init]
 .Create new repo on github and then initialization git remote  
     [git remote add origin https://github.com/mimamc95/sisfo-api.git]
@@ -30,3 +31,10 @@ Step:
     .Make dir routes, create router endpoint into index.js, create function for controller getStudentById
     .Make dir controller, create function getStudentById
     .Implementation & using into routes/index.js
+
+.Instalation postgres [npm install --save pg pg-hstore]
+.Instalation devDependance sequelize-cli [npm install --save-dev sequelize-cli]
+.Initialization sequelize-cli [npx sequelize-cli init]
+.Create db from sequelize-cli [npx sequelize-cli db:create]
+
+psql --host=localhost --port=5432 --dbname=sisfo_api_development --username=postgres --password
