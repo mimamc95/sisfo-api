@@ -53,5 +53,28 @@ const getStudentbyId = (req, res) => {
     })
 }
 
+
+// create router endpoint  students for create data student 
+const createNewStudent = (req, res) => {
+    // get request body
+    const { nama, nim, jurusan } = req.body
+
+    // get new id student
+    const lastStudentId = students[students.length - 1].id
+    const newIdStudent = lastStudentId + 1
+
+    // add to new data student
+    const newStudentData = { id: newIdStudent, nama: nama, nim: nim, jurusan: jurusan }
+    students.push(newStudentData)
+
+    // return response to client
+    res.status(201).json({
+        status: 'Ok',
+        message: 'Success cretae new data student',
+        data: newStudentData
+
+    })
+}
+
 // export controller functions so they can be accessed in other files
-module.exports = { findAllStudent, getStudentbyId }
+module.exports = { findAllStudent, getStudentbyId, createNewStudent }
