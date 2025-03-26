@@ -1,56 +1,60 @@
-// array of object for representation of database students
-const students = [
-    { id: 1, nama: 'Rega Jeatreya', nim: 160801, jurusan: 'TI' },
-    { id: 2, nama: 'Adelia Putri', nim: 160802, jurusan: 'TI' },
-    { id: 3, nama: 'Prima Nugraha', nim: 160803, jurusan: 'TI' },
-    { id: 4, nama: 'Risma Noviana', nim: 160804, jurusan: 'TI' },
-    { id: 5, nama: 'Rifky Ananda', nim: 160805, jurusan: 'TI' },
-]
+// create a students model to communicate with the database
+const { Student } = require('../models')
 
 // create router endpoint  students for read all data students
-const findAllStudent = (req, res) => {
+const findAllStudent = async (req, res) => {
 
-    // get data from data from database students
-    const dataStd = students
+    // // get data from data from database students
+    // const dataStd = students
 
-    // return data with json 
-    const result = {
-        status: 'Ok',
-        data: dataStd
+    // // return data with json 
+    // const result = {
+    //     status: 'Ok',
+    //     data: dataStd
+    // }
+    // res.json(result)
+
+    try {
+        const dataStd = await Student.findAll()
+
+        const result = {
+            status: 'Ok',
+            data: dataStd
+        }
+
+        res.json(result)
+    } catch (error) {
+        console.log(error, '<<< Error find all students')
     }
-    res.json(result)
 
 }
 
 // create router endpoint  students for read data student by id
-const getStudentbyId = (req, res) => {
-    // get request params
-    const { id } = req.params
+const getStudentbyId = async (req, res) => {
 
+    try {
+        // get request params
+        const { id } = req.params
 
-    let student
-    // proccessing data or looping data student
-    for (let i = 0; i < students.length; i++) {
-        // if data student id === id on req.params, save / use that data 
-        if (students[i].id === Number(id)) {
-            student = students[i]
+        const dataStd = await Student.findByPk(id)
+        // if data student null/undifined, send status 404 not found
+        if (dataStd === null) {
+            return res.status(404).json({
+                status: 'Failed',
+                message: `Data student with id ${id} is not found`
+            })
         }
 
-    }
-
-    // if data student undifined, send status 404 not found
-    if (student == undefined) {
-        return res.status(404).json({
-            status: 'Failed',
-            message: `Data student with id ${id} is not found`
+        // return response to client with json/api
+        res.json({
+            status: 'Ok',
+            data: dataStd
         })
+
+    } catch (error) {
+        console.log(error, '<<< Error find student by id ')
     }
 
-    // return response to client with json/api
-    res.json({
-        status: 'Ok',
-        data: student
-    })
 }
 
 

@@ -15,7 +15,7 @@ module.exports = {
      * }], {});
     */
 
-    return queryInterface.bulkInsert('students', [
+    return queryInterface.bulkInsert('Students', [
       {
         nama: 'Patrick',
         nim: 160810,
@@ -35,6 +35,6 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
 
-    return queryInterface.bulkDelete('students', null, {});
+    return queryInterface.bulkDelete('Students', null, {});
   }
 };
