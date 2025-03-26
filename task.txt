@@ -36,5 +36,5 @@ Step:
 .Instalation devDependance sequelize-cli [npm install --save-dev sequelize-cli]
 .Initialization sequelize-cli [npx sequelize-cli init]
 .Create db from sequelize-cli [npx sequelize-cli db:create]
-
-psql --host=localhost --port=5432 --dbname=sisfo_api_development --username=postgres --password
+.Open the database
+    [psql --host=localhost --port=5432 --dbname=sisfo_api_development --username=postgres --password]
