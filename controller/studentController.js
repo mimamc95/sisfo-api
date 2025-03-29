@@ -59,25 +59,36 @@ const getStudentbyId = async (req, res) => {
 
 
 // create router endpoint  students for create data student 
-const createNewStudent = (req, res) => {
-    // get request body
-    const { nama, nim, jurusan } = req.body
+const createNewStudent = async (req, res) => {
 
-    // get new id student
-    const lastStudentId = students[students.length - 1].id
-    const newIdStudent = lastStudentId + 1
+    try {
+        // get request body
+        const { nama, nim, jurusan } = req.body
 
-    // add to new data student
-    const newStudentData = { id: newIdStudent, nama: nama, nim: nim, jurusan: jurusan }
-    students.push(newStudentData)
+        // add to new data student
+        const newStudent = await Student.create({
+            nama: nama,
+            nim: nim,
+            jurusan: jurusan
+        })
 
-    // return response to client
-    res.status(201).json({
-        status: 'Ok',
-        message: 'Success cretae new data student',
-        data: newStudentData
+        // return response to client
+        res.status(201).json({
+            status: 'Ok',
+            data: {
+                id: newStudent.id,
+                nama: newStudent.nama,
+                nim: newStudent.nim,
+                jurusan: newStudent.jurusan,
+                createdAt: newStudent.createdAt,
+                updatedAt: newStudent.updatedAt
+            }
+        })
 
-    })
+    } catch (error) {
+        console.log(error, '<<< Error create new student')
+    }
+
 }
 
 // export controller functions so they can be accessed in other files
