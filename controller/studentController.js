@@ -67,13 +67,15 @@ const createNewStudent = async (req, res, next) => {
 
     try {
         // get request body
-        const { nama, nim, jurusan } = req.body
+        const { nama, nim, email, jurusan, fakultas } = req.body
 
         // add to new data student
         const newStudent = await Student.create({
             nama: nama,
             nim: nim,
-            jurusan: jurusan
+            email: email,
+            jurusan: jurusan,
+            fakultas: fakultas
         })
 
         // return response to client
@@ -83,7 +85,9 @@ const createNewStudent = async (req, res, next) => {
                 id: newStudent.id,
                 nama: newStudent.nama,
                 nim: newStudent.nim,
+                email: newStudent.email,
                 jurusan: newStudent.jurusan,
+                fakultas: newStudent.fakultas,
                 createdAt: newStudent.createdAt,
                 updatedAt: newStudent.updatedAt
             }
@@ -104,7 +108,7 @@ const updateStudent = async (req, res, next) => {
         const { id } = req.params
 
         // get req.body to get {nama, nim, jurusan}
-        const { nama, nim, jurusan } = req.body
+        const { nama, nim, email, jurusan, fakultas } = req.body
         // connect data by id
         const student = await Student.findByPk(id)
         // if not found
@@ -117,7 +121,9 @@ const updateStudent = async (req, res, next) => {
         // if found, update data with the one obtained from req.body
         student.nama = nama
         student.nim = nim
+        student.email = email
         student.jurusan = jurusan
+        student.fakultas = fakultas
         student.updatedAt = new Date()
 
         // save data with sequelize function
@@ -131,7 +137,9 @@ const updateStudent = async (req, res, next) => {
                 id: student.id,
                 nama: student.nama,
                 nim: student.nim,
+                email: student.email,
                 jurusan: student.jurusan,
+                fakultas: student.fakultas,
                 createdAt: student.createdAt,
                 updatedAt: student.updatedAt
             }

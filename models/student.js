@@ -44,6 +44,21 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
 
+    email: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Email is required'
+        },
+        notNull: {
+          args: true,
+          msg: 'Email is required'
+        }
+      }
+    },
+
     jurusan: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -55,6 +70,21 @@ module.exports = (sequelize, DataTypes) => {
         notNull: {
           args: true,
           msg: 'Jurusan is required'
+        }
+      }
+    },
+
+    fakultas: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Fakultas is required'
+        },
+        notNull: {
+          args: true,
+          msg: 'Fakultas is required'
         }
       }
     }
