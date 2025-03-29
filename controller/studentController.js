@@ -91,5 +91,51 @@ const createNewStudent = async (req, res) => {
 
 }
 
+// create router endpoint  students for update data student 
+const updateStudent = async (req, res) => {
+    try {
+        // get req.params to get data student by {id}
+        const { id } = req.params
+
+        // get req.body to get {nama, nim, jurusan}
+        const { nama, nim, jurusan } = req.body
+        // connect data by id
+        const student = await Student.findByPk(id)
+        // if not found
+        if (!student) {
+            return res.status(404).json({
+                status: 'Ok',
+                message: `Data student with id ${id} is not exists`
+            })
+        }
+        // if found, update data with the one obtained from req.body
+        student.nama = nama
+        student.nim = nim
+        student.jurusan = jurusan
+        student.updatedAt = new Date()
+
+        // save data with sequelize function
+        student.save()
+
+        // return response to client
+        res.status(200).json({
+            status: 'Ok',
+            data: {
+                id: student.id,
+                nama: student.nama,
+                nim: student.nim,
+                jurusan: student.jurusan,
+                createdAt: student.createdAt,
+                updatedAt: student.updatedAt
+            }
+        })
+
+
+    } catch (error) {
+        console.log(error, '<<< Error update student')
+    }
+}
+
+
 // export controller functions so they can be accessed in other files
-module.exports = { findAllStudent, getStudentbyId, createNewStudent }
+module.exports = { findAllStudent, getStudentbyId, createNewStudent, updateStudent }
