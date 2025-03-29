@@ -2,7 +2,7 @@
 const { Student } = require('../models')
 
 // create router endpoint  students for read all data students
-const findAllStudent = async (req, res) => {
+const findAllStudent = async (req, res, next) => {
 
     // // get data from data from database students
     // const dataStd = students
@@ -25,12 +25,14 @@ const findAllStudent = async (req, res) => {
         res.json(result)
     } catch (error) {
         console.log(error, '<<< Error find all students')
+        // call middleware errHandler
+        next(error)
     }
 
 }
 
 // create router endpoint  students for read data student by id
-const getStudentbyId = async (req, res) => {
+const getStudentbyId = async (req, res, next) => {
 
     try {
         // get request params
@@ -53,13 +55,15 @@ const getStudentbyId = async (req, res) => {
 
     } catch (error) {
         console.log(error, '<<< Error find student by id ')
+        // call middleware errHandler
+        next(error)
     }
 
 }
 
 
 // create router endpoint  students for create data student 
-const createNewStudent = async (req, res) => {
+const createNewStudent = async (req, res, next) => {
 
     try {
         // get request body
@@ -87,16 +91,14 @@ const createNewStudent = async (req, res) => {
 
     } catch (error) {
         console.log(error.message, '<<< Error create new student')
-        res.status(422).json({
-            status: 'Failed',
-            errorMessage: error.message
-        })
+        // call middleware errHandler
+        next(error)
     }
 
 }
 
 // create router endpoint  students for update data student 
-const updateStudent = async (req, res) => {
+const updateStudent = async (req, res, next) => {
     try {
         // get req.params to get data student by {id}
         const { id } = req.params
@@ -138,15 +140,13 @@ const updateStudent = async (req, res) => {
 
     } catch (error) {
         console.log(error, '<<< Error update student')
-        res.status(422).json({
-            status: 'Failed',
-            errorMessage: error.message
-        })
+        // call middleware errHandler
+        next(error)
     }
 }
 
 // create router endpoint  students for delete data student 
-const destroyStudent = async (req, res) => {
+const destroyStudent = async (req, res, next) => {
     try {
         // get req.params to get data student by {id}
         const { id } = req.params
@@ -172,6 +172,8 @@ const destroyStudent = async (req, res) => {
 
     } catch (error) {
         console.log(error, '<<< Error delete data student')
+        // call middleware errHandler
+        next(error)
     }
 }
 
