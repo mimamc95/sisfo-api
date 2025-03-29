@@ -136,6 +136,35 @@ const updateStudent = async (req, res) => {
     }
 }
 
+// create router endpoint  students for delete data student 
+const destroyStudent = async (req, res) => {
+    try {
+        // get req.params to get data student by {id}
+        const { id } = req.params
+
+        // connect data by id
+        const student = await Student.findByPk(id)
+        // if not found
+        if (!student) {
+            return res.status(404).json({
+                status: 'Ok',
+                message: `Data student with id ${id} is not exists`
+            })
+        }
+
+        // if found, save data with sequelize function
+        student.destroy()
+
+        // return response to client
+        res.status(204).json({
+            status: 'Ok',
+            message: `Success delete data student with id ${id}`
+        })
+
+    } catch (error) {
+        console.log(error, '<<< Error delete data student')
+    }
+}
 
 // export controller functions so they can be accessed in other files
-module.exports = { findAllStudent, getStudentbyId, createNewStudent, updateStudent }
+module.exports = { findAllStudent, getStudentbyId, createNewStudent, updateStudent, destroyStudent }

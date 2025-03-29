@@ -1,4 +1,4 @@
-const { findAllStudent, getStudentbyId, createNewStudent, updateStudent } = require('../controller/studentController')
+const { findAllStudent, getStudentbyId, createNewStudent, updateStudent, destroyStudent } = require('../controller/studentController')
 
 // implementation plugin routes from express
 const router = require('express').Router()
@@ -14,6 +14,9 @@ router.post('/students', createNewStudent)
 
 // router UPDATE data student, import data from studentController
 router.patch('/students/:id', updateStudent)
+
+// router DELETE data student, import data from studentController
+router.delete('/students/:id', destroyStudent)
 
 // export file router from other file
 module.exports = router
