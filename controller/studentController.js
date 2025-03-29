@@ -119,7 +119,8 @@ const updateStudent = async (req, res) => {
         student.updatedAt = new Date()
 
         // save data with sequelize function
-        student.save()
+        await student.validate()
+        await student.save()
 
         // return response to client
         res.status(200).json({
@@ -137,6 +138,10 @@ const updateStudent = async (req, res) => {
 
     } catch (error) {
         console.log(error, '<<< Error update student')
+        res.status(422).json({
+            status: 'Failed',
+            errorMessage: error.message
+        })
     }
 }
 
