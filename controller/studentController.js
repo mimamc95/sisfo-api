@@ -86,7 +86,11 @@ const createNewStudent = async (req, res) => {
         })
 
     } catch (error) {
-        console.log(error, '<<< Error create new student')
+        console.log(error.message, '<<< Error create new student')
+        res.status(422).json({
+            status: 'Failed',
+            errorMessage: error.message
+        })
     }
 
 }

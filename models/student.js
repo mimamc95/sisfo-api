@@ -14,9 +14,50 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Student.init({
-    nama: DataTypes.STRING,
-    nim: DataTypes.INTEGER,
-    jurusan: DataTypes.STRING
+    nama: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Nama is required'
+        },
+        notNull: {
+          args: true,
+          msg: 'Nama is required'
+        }
+      }
+    },
+
+    nim: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'NIM is required'
+        },
+        notNull: {
+          args: true,
+          msg: 'NIM is required'
+        }
+      }
+    },
+
+    jurusan: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Jurusan is required'
+        },
+        notNull: {
+          args: true,
+          msg: 'Jurusan is required'
+        }
+      }
+    }
   }, {
     sequelize,
     modelName: 'Student',
