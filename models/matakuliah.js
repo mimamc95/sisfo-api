@@ -14,9 +14,51 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   MataKuliah.init({
-    makul: DataTypes.STRING,
-    kode: DataTypes.INTEGER,
-    fakultas: DataTypes.STRING
+
+    makul: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Mata Kuliah is required'
+        },
+        notNull: {
+          args: true,
+          msg: 'Mata Kuliah is required'
+        }
+      }
+    },
+
+    kode: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Kode is required'
+        },
+        notNull: {
+          args: true,
+          msg: 'Kode is required'
+        }
+      }
+    },
+
+    fakultas: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Fakultas is required'
+        },
+        notNull: {
+          args: true,
+          msg: 'Fakultas is required'
+        }
+      }
+    }
   }, {
     sequelize,
     modelName: 'MataKuliah',
