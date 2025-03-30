@@ -170,11 +170,11 @@ const destroyStudent = async (req, res, next) => {
             })
         }
 
-        // if found, save data with sequelize function
+        // if found, destroy data with sequelize function
         student.destroy()
 
         // return response to client
-        res.status(204).json({
+        res.status(200).json({
             status: 'Ok',
             message: `Success delete data student with id ${id}`
         })

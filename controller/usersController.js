@@ -132,5 +132,35 @@ const updateUser = async (req, res, next) => {
     }
 }
 
+// create router endpoint user for find/read user by id
+const destroyUser = async (req, res, next) => {
+    try {
+        // get req.params to get data user by id
+        const { id } = req.params
+
+        // connect data by id
+        const user = await User.findByPk(id)
+        // if not found, response status 404 not found
+        if (!user) {
+            res.status(404).json({
+                status: 'Failed',
+                message: `Data user with id ${id} is not exists`
+            })
+        }
+        // if data user founded, destroy data with sequielize function
+        user.destroy()
+
+        // return to client
+        res.status(200).json({
+            status: 'Ok',
+            message: `Success delete data user with id ${id}`
+        })
+
+    } catch (error) {
+        console.log(error, 'Error delete data user')
+        // call middleware errHandler
+        next(error)
+    }
+}
 // export controller functions so they can be accessed in other files
-module.exports = { registerUser, findAllUser, getUserbyId, updateUser }
+module.exports = { registerUser, findAllUser, getUserbyId, updateUser, destroyUser }

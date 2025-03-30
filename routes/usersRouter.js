@@ -1,7 +1,7 @@
 // import Router
 const router = require('express').Router()
 
-const { registerUser, findAllUser, getUserbyId, updateUser } = require('../controller/usersController')
+const { registerUser, findAllUser, getUserbyId, updateUser, destroyUser } = require('../controller/usersController')
 
 
 // router CREATE data user, import data from usersController
@@ -16,8 +16,8 @@ router.get('/:id', getUserbyId)
 // router UPDATE data user, import data from usersController
 router.patch('/:id', updateUser)
 
-// // router DELETE data student, import data from studentController
-// router.delete('/students/:id', destroyStudent)
+// // router DELETE data USER, import data from usersController
+router.delete('/:id', destroyUser)
 
 
 
