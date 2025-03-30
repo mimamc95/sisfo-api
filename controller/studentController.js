@@ -15,8 +15,9 @@ const findAllStudent = async (req, res, next) => {
     // res.json(result)
 
     try {
+        // get data from data from database students
         const dataStd = await Student.findAll()
-
+        // return data with json 
         const result = {
             status: 'Ok',
             data: dataStd
@@ -114,7 +115,7 @@ const updateStudent = async (req, res, next) => {
         // if not found
         if (!student) {
             return res.status(404).json({
-                status: 'Ok',
+                status: 'Failed',
                 message: `Data student with id ${id} is not exists`
             })
         }
