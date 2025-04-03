@@ -41,6 +41,10 @@ module.exports = (sequelize, DataTypes) => {
         notNull: {
           args: true,
           msg: 'Kode is required'
+        },
+        isNumeric: {
+          args: true,
+          msg: 'Kode must numeric format'
         }
       }
     },

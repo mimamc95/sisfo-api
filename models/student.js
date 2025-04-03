@@ -40,6 +40,10 @@ module.exports = (sequelize, DataTypes) => {
         notNull: {
           args: true,
           msg: 'NIM is required'
+        },
+        isNumeric:{
+          args:true,
+          msg:'NIM must numeric format'
         }
       }
     },

@@ -62,7 +62,6 @@ const getStudentbyId = async (req, res, next) => {
 
 }
 
-
 // create router endpoint  students for create data student 
 const createNewStudent = async (req, res, next) => {
 
