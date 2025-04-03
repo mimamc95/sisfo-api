@@ -157,7 +157,7 @@ const destroyMakul = async (req, res, next) => {
 
     } catch (error) {
         console.log(error, '<<< Error delete dadata Mata Kuliah')
-        //call errHandler
+        //call middleware errHandler
         next(error)
     }
 }
