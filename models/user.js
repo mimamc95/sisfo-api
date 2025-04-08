@@ -29,6 +29,22 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
 
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Username is required'
+        },
+        notNull: {
+          args: true,
+          msg: 'Username is required'
+        }
+      }
+    },
+
     email: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -61,10 +77,21 @@ module.exports = (sequelize, DataTypes) => {
         notNull: {
           args: true,
           msg: 'Password is required'
+        }
+      }
+    },
+
+    role: {
+      type: DataTypes.ENUM('admin','mahasiswa','dosen'),
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Role is required'
         },
-        len: {
-          args: [2, 8],
-          msg: 'Password length must between 2-8 char'
+        notNull: {
+          args: true,
+          msg: 'Role is required'
         }
       }
     }

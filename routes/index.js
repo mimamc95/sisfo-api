@@ -4,6 +4,7 @@ const studentsRouter = require('./studentsRouter')
 const usersRouter = require('./usersRouter')
 const mataKuliahRouter = require('./mataKuliahRouter')
 const dosensRouter = require('./dosensRouter')
+const kelasRouter = require('./kelasRouter')
 
 
 // refactor router for students
@@ -17,6 +18,9 @@ router.use('/api/v1/matakuliah', mataKuliahRouter)
 
 // refactor router for dosens
 router.use('/api/v1/dosens', dosensRouter)
+
+// refactor router for dosens
+// router.use('/api/v1/kelas', kelasRouter)
 
 
 // export file router from other file

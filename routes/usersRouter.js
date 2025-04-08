@@ -1,11 +1,17 @@
 // import Router
 const router = require('express').Router()
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-const { registerUser, findAllUser, getUserbyId, updateUser, destroyUser } = require('../controller/usersController')
+const { registerUser, findAllUser, getUserbyId, updateUser, destroyUser, loginUser } = require('../controller/usersController')
+
 
 
 // router CREATE data user, import data from usersController
-router.post('/register', registerUser)
+router.post('/auth/register', registerUser)
+
+// router login user, import data from usersController
+router.post('/auth/login', loginUser)
 
 // router READ all user, import data from usersController
 router.get('/', findAllUser)
