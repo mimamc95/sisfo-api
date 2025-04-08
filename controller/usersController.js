@@ -170,10 +170,13 @@ const updateUser = async (req, res, next) => {
             })
         }
 
+        // hashing / encrypt password using bcrypt
+        const hash = await bcrypt.hash(password, 10);
+
         // if found,update data with the one obtained from req.body
         user.nama = nama
         user.email = email
-        user.password = password
+        user.password = hash
         user.updatedAt = new Date()
 
         // save data with sequeize function
