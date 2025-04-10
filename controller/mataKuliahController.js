@@ -1,15 +1,16 @@
 // create a students model to communicate with the database
-const { MataKuliah } = require('../models')
+const { MataKuliahs } = require('../models')
 
 // create router endpoint makul for create new makul 
 const addMakul = async (req, res, next) => {
     try {
         // get request body
-        const { makul, kode, fakultas } = req.body
+        const { kode, nama, dosenId, fakultas } = req.body
         // add to new data mata kuliah
-        const newMakul = await MataKuliah.create({
-            makul: makul,
+        const newMakul = await MataKuliahs.create({
             kode: kode,
+            nama: nama,
+            dosenId: dosenId,
             fakultas: fakultas
         })
 
@@ -18,8 +19,9 @@ const addMakul = async (req, res, next) => {
             status: 'Ok',
             data: {
                 id: newMakul.id,
-                makul: newMakul.makul,
-                makul: newMakul.kode,
+                kode: newMakul.kode,
+                nama: newMakul.nama,
+                dosenId: newMakul.dosenId,
                 fakultas: newMakul.fakultas,
                 createdAt: newMakul.createdAt,
                 updatedAt: newMakul.updatedAt
@@ -38,7 +40,7 @@ const addMakul = async (req, res, next) => {
 const findAllMakul = async (req, res, next) => {
     try {
         // get data from data from database MataKuliahs
-        const dataMakul = await MataKuliah.findAll()
+        const dataMakul = await MataKuliahs.findAll()
         // return result with json
         const result = {
             status: 'Ok',
@@ -59,7 +61,7 @@ const getMakulById = async (req, res, next) => {
     try {
         // get id from request params
         const { id } = req.params
-        const dataMakul = await MataKuliah.findByPk(id)
+        const dataMakul = await MataKuliahs.findByPk(id)
 
         // if data user null/undifined, send status 404 not found
         if (dataMakul === null) {
@@ -88,10 +90,10 @@ const updateMakul = async (req, res, next) => {
     try {
         // get req.params to get data user by id
         const { id } = req.params
-        // get req.body to get { makul, kode, fakultas}
-        const { makul, kode, fakultas } = req.body
+        // get req.body to get { kode, nama, dosenId, fakultas }
+        const { kode, nama, dosenId, fakultas } = req.body
         // connect data by id
-        const dataMakul = await MataKuliah.findByPk(id)
+        const dataMakul = await MataKuliahs.findByPk(id)
 
         // if not found, return response status 404
         if (!dataMakul) {
@@ -102,8 +104,9 @@ const updateMakul = async (req, res, next) => {
         }
 
         // if found,update data with the one obtained from req.body
-        dataMakul.makul = makul
         dataMakul.kode = kode
+        dataMakul.nama = nama
+        dataMakul.dosenId = dosenId
         dataMakul.fakultas = fakultas
         dataMakul.updatedAt = new Date()
 
@@ -116,8 +119,9 @@ const updateMakul = async (req, res, next) => {
             status: 'Ok',
             data: {
                 id: dataMakul.id,
-                makul: dataMakul.makul,
                 kode: dataMakul.kode,
+                nama: dataMakul.nama,
+                dosenId: dataMakul.dosenId,
                 fakultas: dataMakul.fakultas,
                 updatedAt: dataMakul.updatedAt
             }
@@ -136,7 +140,7 @@ const destroyMakul = async (req, res, next) => {
         // get req.params to get data user by id
         const { id } = req.params
         // connect data by id
-        const dataMakul = await MataKuliah.findByPk(id)
+        const dataMakul = await MataKuliahs.findByPk(id)
 
         // if data not found, response status 404
         if (!dataMakul) {
@@ -151,8 +155,8 @@ const destroyMakul = async (req, res, next) => {
 
         // return response to client
         res.status(200).json({
-           status:'Ok',
-           message:`Data with id ${id} success deleted`
+            status: 'Ok',
+            message: `Data with id ${id} success deleted`
         })
 
     } catch (error) {

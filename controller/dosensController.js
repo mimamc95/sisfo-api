@@ -1,5 +1,5 @@
 // create a Dosen model to communicate with the database
-const { Dosen } = require('../models')
+const { Dosens } = require('../models')
 
 
 // create router endpoint makul for create new dosen 
@@ -8,13 +8,15 @@ const createNewDosen = async (req, res, next) => {
 
     try {
         // get request body
-        const { nama, email, nip, fakultas } = req.body
+        const { nama, email, nidn, fakultas } = req.body
+        const userId = 1 // hardcode userId for now
 
         // add to new data dosens
-        const dataDosen = await Dosen.create({
+        const dataDosen = await Dosens.create({
+            userId: userId,
             nama: nama,
             email: email,
-            nip: nip,
+            nidn: nidn,
             fakultas: fakultas
         })
 
@@ -23,9 +25,10 @@ const createNewDosen = async (req, res, next) => {
             status: 'Ok',
             data: {
                 id: dataDosen.id,
+                userId: dataDosen.userId,
                 nama: dataDosen.nama,
                 email: dataDosen.email,
-                nip: dataDosen.nip,
+                nidn: dataDosen.nidn,
                 fakultas: dataDosen.fakultas,
                 createdAt: dataDosen.createdAt,
                 updatedAt: dataDosen.updatedAt
@@ -43,7 +46,7 @@ const createNewDosen = async (req, res, next) => {
 const findAllDosen = async (req, res, next) => {
     try {
         // get data from data from database users
-        const dataDosen = await Dosen.findAll()
+        const dataDosen = await Dosens.findAll()
 
         // return with json
         const result = {
@@ -65,7 +68,7 @@ const getDosenbyId = async (req, res, next) => {
     try {
         // get id from  requést params
         const { id } = req.params
-        const dataDosen = await Dosen.findByPk(id)
+        const dataDosen = await Dosens.findByPk(id)
 
         // if data dosen null/undifined, send status 404 not found
         if (dataDosen === null) {
@@ -93,10 +96,12 @@ const updateDosen = async (req, res, next) => {
     try {
         // get req.params to get data user by id
         const { id } = req.params
-        // get req.body to get { nama, email, nip, fakultas }
-        const { nama, email, nip, fakultas } = req.body
+        // get req.body to get { userId, nama, email, nidn, fakultas }
+        const { nama, email, nidn, fakultas } = req.body
+        const userId = 1 // hardcode userId for now
+
         // connect data by id
-        const dataDosen = await Dosen.findByPk(id)
+        const dataDosen = await Dosens.findByPk(id)
 
         // if not found, return response status 404
         if (!dataDosen) {
@@ -107,9 +112,10 @@ const updateDosen = async (req, res, next) => {
         }
 
         // if found,update data with the one obtained from req.body
+        dataDosen.userId = userId
         dataDosen.nama = nama
         dataDosen.email = email
-        dataDosen.nip = nip
+        dataDosen.nidn = nidn
         dataDosen.fakultas = fakultas
         dataDosen.updatedAt = new Date()
 
@@ -122,9 +128,10 @@ const updateDosen = async (req, res, next) => {
             status: 'Ok',
             data: {
                 id: dataDosen.id,
+                userId: dataDosen.userId,
                 nama: dataDosen.nama,
                 email: dataDosen.email,
-                nip: dataDosen.nip,
+                nidn: dataDosen.nidn,
                 fakultas: dataDosen.fakultas,
                 updatedAt: dataDosen.updatedAt
 
@@ -145,7 +152,7 @@ const destroyDosen = async (req, res, next) => {
         // get req.params to get data user by id
         const { id } = req.params
         // connect data by id
-        const dataDosen = await Dosen.findByPk(id)
+        const dataDosen = await Dosens.findByPk(id)
         // if data not found, response status 404
         if (!dataDosen) {
             res.status(404).json({

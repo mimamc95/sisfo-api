@@ -15,20 +15,21 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
 
-  Kelas.associate = function (models) {
-    Kelas.belongsTo(models.MataKuliahs, {
-      foreignKey: 'makulId'
-    })
-    Kelas.belongsToMany(models.Students, {
-      through: models.KelasMahasiswas,
-      foreignKey: 'kelasId',
-    })
-  }
+  // Kelas.associate = function (models) {
+  //   Kelas.belongsTo(models.MataKuliahs, {
+  //     foreignKey: 'makulId'
+  //   })
+  //   Kelas.belongsToMany(models.Students, {
+  //     through: models.KelasMahasiswas,
+  //     foreignKey: 'kelasId',
+  //   })
+  // }
 
 
   Kelas.init({
     kode: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
+      unique: true,
       allowNull: false,
       validate: {
         notEmpty: {

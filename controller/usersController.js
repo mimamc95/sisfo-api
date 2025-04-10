@@ -1,19 +1,19 @@
 // create a user model to communicate with the database
-const { User } = require('../models')
+const { Users } = require('../models')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 // JWT secret (hardcoded, not .env)
 const JWT_SECRET = 'supersecret123';
 
-// create router endpoint user for create new user 
+// create router endpoint user for register new user 
 const registerUser = async (req, res, next) => {
 
     try {
         // get request body
         const { nama, username, email, password, role } = req.body;
         // validation role
-        if (!['admin', 'mahasiswa', 'dosen'].includes(role)) {
+        if (!['mahasiswa', 'dosen'].includes(role)) {
             return res.status(400).json({
                 status: 'Failed',
                 message: 'Invalid role'
@@ -23,7 +23,7 @@ const registerUser = async (req, res, next) => {
         // hashing / encrypt password using bcrypt
         const hash = await bcrypt.hash(password, 10);
         // add to new data student
-        const newUser = await User.create({
+        const newUser = await Users.create({
             nama: nama,
             username: username,
             email: email,
@@ -39,6 +39,7 @@ const registerUser = async (req, res, next) => {
                 nama: newUser.nama,
                 email: newUser.email,
                 password: newUser.password,
+                role: newUser.role,
                 createdAt: newUser.createdAt,
                 updatedAt: newUser.updatedAt
             }
@@ -59,7 +60,7 @@ const loginUser = async (req, res, next) => {
         // get request body
         const { email, password } = req.body
         // get data user by spesific email
-        const dataUser = await User.findOne({
+        const dataUser = await Users.findOne({
             where: { email }
         })
         if (!dataUser) return res.status(404).json({
@@ -109,7 +110,7 @@ const loginUser = async (req, res, next) => {
 const findAllUser = async (req, res, next) => {
     try {
         // get data from data from database users
-        const dataUser = await User.findAll()
+        const dataUser = await Users.findAll()
         // return with json
         const result = {
             status: 'Ok',
@@ -130,7 +131,7 @@ const getUserbyId = async (req, res, next) => {
         // get requést params
         const { id } = req.params
 
-        const dataUser = await User.findByPk(id)
+        const dataUser = await Users.findByPk(id)
         // if data user null/undifined, send status 404 not found
         if (dataUser === null) {
             return res.status(404).json({
@@ -159,9 +160,9 @@ const updateUser = async (req, res, next) => {
         const { id } = req.params
 
         // get req.body to get { nama, email, password}
-        const { nama, email, password } = req.body
+        const { nama, username, email, password } = req.body
         // connect data by id
-        const user = await User.findByPk(id)
+        const user = await Users.findByPk(id)
         // if not found
         if (!user) {
             return res.status(404).json({
@@ -175,6 +176,7 @@ const updateUser = async (req, res, next) => {
 
         // if found,update data with the one obtained from req.body
         user.nama = nama
+        user.username = username
         user.email = email
         user.password = hash
         user.updatedAt = new Date()
@@ -189,6 +191,7 @@ const updateUser = async (req, res, next) => {
             data: {
                 id: user.id,
                 nama: user.nama,
+                username: user.username,
                 email: user.email,
                 password: user.password,
                 createdAt: user.createdAt,
@@ -211,7 +214,7 @@ const destroyUser = async (req, res, next) => {
         const { id } = req.params
 
         // connect data by id
-        const user = await User.findByPk(id)
+        const user = await Users.findByPk(id)
         // if not found, response status 404 not found
         if (!user) {
             res.status(404).json({

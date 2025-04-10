@@ -1,10 +1,10 @@
 // import Router
-// const router = require('express').Router()
+const router = require('express').Router()
 
-// const {  } = require('../controller/kelasController')
+const { createNewKelas } = require('../controller/kelasController')
 
-// // router endpoint CREATE data kelas, import data from kelasController
-// router.post('/', createNewKelas )
+// router endpoint CREATE data kelas, import data from kelasController
+router.post('/', createNewKelas )
 
 // // // router endpoint READ all kelas, import data from kelasController
 // // router.get('/', findAllKelas)
@@ -18,5 +18,5 @@
 // // // router DELETE data kelas, import data from kelasController
 // // router.delete('/:id', destroyKelas)
 
-// // export file router from other file
-// module.exports = router
+// export file router from other file
+module.exports = router

@@ -15,14 +15,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
 
-  kelasMahasiswas.associate = function (models) {
-    kelasMahasiswas.belongsTo(models.Kelas, {
-      foreignKey: 'kelasId'
-    })
-    kelasMahasiswas.belongsTo(models.Students, {
-      foreignKey: 'mahasiswaId'
-    })
-  };
+  // kelasMahasiswas.associate = function (models) {
+  //   kelasMahasiswas.belongsTo(models.Kelas, {
+  //     foreignKey: 'kelasId'
+  //   })
+  //   kelasMahasiswas.belongsTo(models.Students, {
+  //     foreignKey: 'mahasiswaId'
+  //   })
+  // };
 
 
   kelasMahasiswas.init({

@@ -1,6 +1,8 @@
 'use strict';
-import { Model } from 'sequelize';
-export default (sequelize, DataTypes) => {
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
   class Students extends Model {
     /**
      * Helper method for defining associations.
@@ -13,15 +15,15 @@ export default (sequelize, DataTypes) => {
     }
   }
 
-  Students.associate = function (models) {
-    Students.belongsTo(models.Users, {
-      foreignKey: 'userId'
-    })
-    Students.belongsToMany(models.Kelas, {
-      through: models.KelasMahasiswas,
-      foreignKey: 'mahasiswaId',
-    })
-  }
+  // Students.associate = function (models) {
+  //   Students.belongsTo(models.Users, {
+  //     foreignKey: 'userId'
+  //   })
+  //   Students.belongsToMany(models.Kelas, {
+  //     through: models.KelasMahasiswas,
+  //     foreignKey: 'mahasiswaId',
+  //   })
+  // }
 
   Students.init({
     userId: {

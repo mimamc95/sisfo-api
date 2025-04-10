@@ -1,22 +1,56 @@
 // create a students model to communicate with the database
-const { Student } = require('../models')
+const { Students } = require('../models')
+// const { User } = require('../models')
+
+
+// create router endpoint  students for create data student 
+const createNewStudent = async (req, res, next) => {
+
+    try {
+        // get request body
+        const { nama, nim, email, jurusan, fakultas } = req.body
+        const userId = 2 // hardcode userId for now
+
+        // add to new data student
+        const newStudent = await Students.create({
+            userId: userId,
+            nama: nama,
+            nim: nim,
+            email: email,
+            jurusan: jurusan,
+            fakultas: fakultas
+        })
+
+        // return response to client
+        res.status(201).json({
+            status: 'Ok',
+            data: {
+                id: newStudent.id,
+                userId: newStudent.userId,
+                nama: newStudent.nama,
+                nim: newStudent.nim,
+                email: newStudent.email,
+                jurusan: newStudent.jurusan,
+                fakultas: newStudent.fakultas,
+                createdAt: newStudent.createdAt,
+                updatedAt: newStudent.updatedAt
+            }
+        })
+
+    } catch (error) {
+        console.log(error.message, '<<< Error create new student')
+        // call middleware errHandler
+        next(error)
+    }
+
+}
 
 // create router endpoint  students for read all data students
 const findAllStudent = async (req, res, next) => {
 
-    // // get data from data from database students
-    // const dataStd = students
-
-    // // return data with json 
-    // const result = {
-    //     status: 'Ok',
-    //     data: dataStd
-    // }
-    // res.json(result)
-
     try {
         // get data from data from database students
-        const dataStd = await Student.findAll()
+        const dataStd = await Students.findAll()
         // return data with json 
         const result = {
             status: 'Ok',
@@ -39,7 +73,7 @@ const getStudentbyId = async (req, res, next) => {
         // get request params
         const { id } = req.params
 
-        const dataStd = await Student.findByPk(id)
+        const dataStd = await Students.findByPk(id)
         // if data student null/undifined, send status 404 not found
         if (dataStd === null) {
             return res.status(404).json({
@@ -62,44 +96,7 @@ const getStudentbyId = async (req, res, next) => {
 
 }
 
-// create router endpoint  students for create data student 
-const createNewStudent = async (req, res, next) => {
 
-    try {
-        // get request body
-        const { nama, nim, email, jurusan, fakultas } = req.body
-
-        // add to new data student
-        const newStudent = await Student.create({
-            nama: nama,
-            nim: nim,
-            email: email,
-            jurusan: jurusan,
-            fakultas: fakultas
-        })
-
-        // return response to client
-        res.status(201).json({
-            status: 'Ok',
-            data: {
-                id: newStudent.id,
-                nama: newStudent.nama,
-                nim: newStudent.nim,
-                email: newStudent.email,
-                jurusan: newStudent.jurusan,
-                fakultas: newStudent.fakultas,
-                createdAt: newStudent.createdAt,
-                updatedAt: newStudent.updatedAt
-            }
-        })
-
-    } catch (error) {
-        console.log(error.message, '<<< Error create new student')
-        // call middleware errHandler
-        next(error)
-    }
-
-}
 
 // create router endpoint  students for update data student 
 const updateStudent = async (req, res, next) => {
@@ -109,8 +106,10 @@ const updateStudent = async (req, res, next) => {
 
         // get req.body to get {nama, nim, jurusan}
         const { nama, nim, email, jurusan, fakultas } = req.body
+        const userId = 2 // hardcode userId for now
+
         // connect data by id
-        const student = await Student.findByPk(id)
+        const student = await Students.findByPk(id)
         // if not found
         if (!student) {
             return res.status(404).json({
@@ -119,6 +118,7 @@ const updateStudent = async (req, res, next) => {
             })
         }
         // if found, update data with the one obtained from req.body
+        student.userId = userId
         student.nama = nama
         student.nim = nim
         student.email = email
@@ -135,6 +135,7 @@ const updateStudent = async (req, res, next) => {
             status: 'Ok',
             data: {
                 id: student.id,
+                userId: student.userId,
                 nama: student.nama,
                 nim: student.nim,
                 email: student.email,
@@ -160,7 +161,7 @@ const destroyStudent = async (req, res, next) => {
         const { id } = req.params
 
         // connect data by id
-        const student = await Student.findByPk(id)
+        const student = await Students.findByPk(id)
         // if not found
         if (!student) {
             return res.status(404).json({

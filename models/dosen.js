@@ -1,6 +1,8 @@
 'use strict';
-import { Model } from 'sequelize';
-export default (sequelize, DataTypes) => {
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
   class Dosens extends Model {
     /**
      * Helper method for defining associations.
@@ -13,14 +15,14 @@ export default (sequelize, DataTypes) => {
     }
   }
 
-  Dosens.associate = function (models) {
-    Dosens.belongsTo(models.Users, {
-      foreignKey: 'userId'
-    })
-    Dosens.hasMany(models.MataKuliahs, {
-      foreignKey: 'dosenId'
-    })
-  }
+  // Dosens.associate = function (models) {
+  //   Dosens.belongsTo(models.Users, {
+  //     foreignKey: 'userId'
+  //   })
+  //   Dosens.hasMany(models.MataKuliahs, {
+  //     foreignKey: 'dosenId'
+  //   })
+  // }
 
   Dosens.init({
     userId: {

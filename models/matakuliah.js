@@ -15,14 +15,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
 
-  MataKuliahs.associate = function (models) {
-    MataKuliahs.belongsTo(models.Dosens, {
-      foreignKey: 'dosenId'
-    })
-    MataKuliahs.hasMany(models.Kelas, {
-      foreignKey: 'makulId'
-    })
-  };
+  // MataKuliahs.associate = function (models) {
+  //   MataKuliahs.belongsTo(models.Dosens, {
+  //     foreignKey: 'dosenId'
+  //   })
+  //   MataKuliahs.hasMany(models.Kelas, {
+  //     foreignKey: 'makulId'
+  //   })
+  // };
 
 
   MataKuliahs.init({

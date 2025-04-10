@@ -17,14 +17,14 @@ module.exports = (sequelize, DataTypes) => {
 
   }
 
-  Users.associate = function (models) {
-    Users.hasOne(models.Students, {
-      foreignKey: 'userId'
-    })
-    Users.hasOne(models.Dosens, {
-      foreignKey: 'userId'
-    })
-  }
+  // Users.associate = function (models) {
+  //   Users.hasOne(models.Students, {
+  //     foreignKey: 'userId'
+  //   })
+  //   Users.hasOne(models.Dosens, {
+  //     foreignKey: 'userId'
+  //   })
+  // }
 
   Users.init({
     nama: {
@@ -95,13 +95,9 @@ module.exports = (sequelize, DataTypes) => {
     },
 
     role: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM('mahasiswa', 'dosen'),
       allowNull: false,
       validate: {
-        isIn: {
-          args: [['Mahasiswa', 'Dosen']],
-          msg: 'Role must be either mahasiswa or dosen'
-        },
         notEmpty: {
           args: true,
           msg: 'Role is required'
