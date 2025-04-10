@@ -11,11 +11,82 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+
     }
   }
+
+  Kelas.associate = function (models) {
+    Kelas.belongsTo(models.MataKuliahs, {
+      foreignKey: 'makulId'
+    })
+    Kelas.belongsToMany(models.Students, {
+      through: models.KelasMahasiswas,
+      foreignKey: 'kelasId',
+    })
+  }
+
+
   Kelas.init({
-    kelas: DataTypes.STRING,
-    fakultas: DataTypes.STRING
+    kode: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          message: 'Kode is required'
+        },
+        notNull: {
+          args: true,
+          message: 'Kode is required'
+        }
+      }
+    },
+
+    nama: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          message: 'Nama is required'
+        },
+        notNull: {
+          args: true,
+          message: 'Nama is required'
+        }
+
+      }
+    },
+
+    makulId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          message: ' Mata Kuliah Id is required'
+        },
+        notNull: {
+          args: true,
+          message: ' Mata Kuliah Id is required'
+        }
+      }
+    },
+
+    fakultas: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          message: 'Fakultas is required'
+        },
+        notNull: {
+          args: true,
+          message: 'Fakultas is required'
+        }
+      }
+    }
   }, {
     sequelize,
     modelName: 'Kelas',

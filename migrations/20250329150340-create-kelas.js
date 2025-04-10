@@ -9,8 +9,14 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      kelas: {
+      kode: {
+        type: Sequelize.INTEGER
+      },
+      nama: {
         type: Sequelize.STRING
+      },
+      makulId: {
+        type: Sequelize.INTEGER
       },
       fakultas: {
         type: Sequelize.STRING

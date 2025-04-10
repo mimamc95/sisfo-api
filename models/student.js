@@ -1,9 +1,7 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
-  class Student extends Model {
+import { Model } from 'sequelize';
+export default (sequelize, DataTypes) => {
+  class Students extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,9 +9,36 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+
     }
   }
-  Student.init({
+
+  Students.associate = function (models) {
+    Students.belongsTo(models.Users, {
+      foreignKey: 'userId'
+    })
+    Students.belongsToMany(models.Kelas, {
+      through: models.KelasMahasiswas,
+      foreignKey: 'mahasiswaId',
+    })
+  }
+
+  Students.init({
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'User Id is required'
+        },
+        notNull: {
+          args: true,
+          msg: 'User Id is required'
+        }
+      }
+    },
+
     nama: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -41,9 +66,9 @@ module.exports = (sequelize, DataTypes) => {
           args: true,
           msg: 'NIM is required'
         },
-        isNumeric:{
-          args:true,
-          msg:'NIM must numeric format'
+        isNumeric: {
+          args: true,
+          msg: 'NIM must numeric format'
         }
       }
     },
@@ -94,7 +119,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'Student',
+    modelName: 'Students',
   });
-  return Student;
+  return Students;
 };

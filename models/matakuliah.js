@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class MataKuliah extends Model {
+  class MataKuliahs extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,25 +11,21 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+
     }
   }
-  MataKuliah.init({
 
-    makul: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: {
-          args: true,
-          msg: 'Mata Kuliah is required'
-        },
-        notNull: {
-          args: true,
-          msg: 'Mata Kuliah is required'
-        }
-      }
-    },
+  MataKuliahs.associate = function (models) {
+    MataKuliahs.belongsTo(models.Dosens, {
+      foreignKey: 'dosenId'
+    })
+    MataKuliahs.hasMany(models.Kelas, {
+      foreignKey: 'makulId'
+    })
+  };
 
+
+  MataKuliahs.init({
     kode: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -41,6 +37,40 @@ module.exports = (sequelize, DataTypes) => {
         notNull: {
           args: true,
           msg: 'Kode is required'
+        },
+        isNumeric: {
+          args: true,
+          msg: 'Kode must numeric format'
+        }
+      }
+    },
+
+    nama: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Nama is required'
+        },
+        notNull: {
+          args: true,
+          msg: 'Nama is required'
+        }
+      }
+    },
+
+    dosenId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Dosen Id required'
+        },
+        notNull: {
+          args: true,
+          msg: 'Dosen Id required'
         },
         isNumeric: {
           args: true,
@@ -65,7 +95,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'MataKuliah',
+    modelName: 'MataKuliahs',
   });
-  return MataKuliah;
+  return MataKuliahs;
 };

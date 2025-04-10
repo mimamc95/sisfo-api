@@ -1,9 +1,7 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
-  class Dosen extends Model {
+import { Model } from 'sequelize';
+export default (sequelize, DataTypes) => {
+  class Dosens extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,9 +9,35 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+
     }
   }
-  Dosen.init({
+
+  Dosens.associate = function (models) {
+    Dosens.belongsTo(models.Users, {
+      foreignKey: 'userId'
+    })
+    Dosens.hasMany(models.MataKuliahs, {
+      foreignKey: 'dosenId'
+    })
+  }
+
+  Dosens.init({
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'User Id is required'
+        },
+        notNull: {
+          args: true,
+          msg: 'User Id is required'
+        }
+      }
+    },
+
     nama: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -49,21 +73,21 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
 
-    nip: {
+    nidn: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         notEmpty: {
           args: true,
-          msg: 'NIP is required'
+          msg: 'NIDN is required'
         },
         notNull: {
           args: true,
-          msg: 'NIP is required'
+          msg: 'NIDN is required'
         },
-        isNumeric:{
-          args:true,
-          msg:'NIP must numeric format'
+        isNumeric: {
+          args: true,
+          msg: 'NIDN must numeric format'
         }
       }
     },
@@ -82,10 +106,10 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     }
-    
+
   }, {
     sequelize,
-    modelName: 'Dosen',
+    modelName: 'Dosens',
   });
-  return Dosen;
+  return Dosens;
 };

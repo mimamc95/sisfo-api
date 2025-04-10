@@ -2,8 +2,8 @@ Task:
 
 Bikin Api sederhana,
 
--Login
--Register 
+✔  -Login 
+✔  -Register 
 -Daftar mahasiswa
 -Daftar dosen
 -Daftar mata kuliah
@@ -11,98 +11,10 @@ Bikin Api sederhana,
 -Daftar kelas, jadi mahasiswa ini sekarang ada di kelas apa
 
 ------------------------------------------------------------------------
-#OPEN AI
-Berikut adalah contoh struktur tabel yang lebih rinci berdasarkan kebutuhan yang kamu sebutkan, termasuk bagaimana relasi antara tabel login, register, user, mahasiswa, dosen, kelas, dan mata kuliah, serta bagaimana menangani role login (mahasiswa atau dosen):
-
-// ### 1. **Tabel `login`**
-// Tabel ini menyimpan informasi login pengguna (username, password) dan role (apakah mahasiswa atau dosen).
-
-// | id_login | username  | password  | role        | created_at          |
-// |----------|-----------|-----------|-------------|---------------------|
-// | 1        | andi123   | password1 | mahasiswa   | 2025-04-05 10:00:00 |
-// | 2        | budi456   | password2 | dosen       | 2025-04-05 10:05:00 |
-
-// ### 2. **Tabel `register`**
-// Tabel ini digunakan untuk menyimpan informasi saat pendaftaran pengguna baru (misalnya nama, email, dan nomor telepon).
-
-// | id_register | nama        | email             | no_telepon  | role      | created_at          |
-// |-------------|-------------|-------------------|-------------|-----------|---------------------|
-// | 1           | Andi Rahman | andi@email.com     | 0812345678  | mahasiswa | 2025-04-05 10:00:00 |
-// | 2           | Budi Santoso| budi@email.com     | 0812345679  | dosen     | 2025-04-05 10:05:00 |
-
-### 3. **Tabel `user`**
-Tabel ini berfungsi untuk menyimpan informasi umum pengguna (mahasiswa atau dosen) dan menghubungkan pengguna dengan tabel `login`.
-
-| id_user | nama       | alamat                | tgl_lahir   |
-|---------|------------|-----------------------|-------------|
-| 1       | Andi Rahman| Jl. Merdeka No. 1     | 2000-01-01  |
-| 2       |Budi Santoso|  Jl. Kemerdekaan No. 2| 1995-05-12  |
-
-### 4. **Tabel `mahasiswa`**
-Tabel ini berisi data khusus untuk mahasiswa dan menghubungkannya dengan **user**.
-
-| id_mahasiswa | id_user | npm       | jurusan      | angkatan |
-|--------------|---------|-----------|--------------|----------|
-| 1            | 1       | 123456789 | Teknik Informatika | 2023 |
-| 2            | 2       | 987654321 | Sistem Informasi | 2022 |
-
-### 5. **Tabel `dosen`**
-Tabel ini berisi data khusus untuk dosen dan menghubungkannya dengan **user**.
-
-| id_dosen | id_user | nip        | departemen     |
-|----------|---------|------------|----------------|
-| 1        | 2       | 567890123  | Teknik Informatika |
-| 2        | 3       | 678901234  | Sistem Informasi  |
-
-### 6. **Tabel `mata_kuliah`**
-Tabel ini menyimpan informasi tentang mata kuliah yang diajarkan oleh dosen.
-
-| id_mata_kuliah | nama_mata_kuliah   | id_dosen | sks |
-|----------------|--------------------|----------|-----|
-| 1              | Pemrograman Web    | 1        | 3   |
-| 2              | Basis Data         | 2        | 3   |
-
-### 7. **Tabel `kelas`**
-Tabel ini berisi informasi kelas (kelas, mata kuliah, dosen) dan memiliki relasi dengan mahasiswa yang mengikuti kelas tersebut.
-
-| id_kelas | id_mata_kuliah | id_dosen | nama_kelas | waktu           |
-|----------|----------------|----------|------------|-----------------|
-| 1        | 1              | 1        | Kelas A    | Senin 10:00-12:00 |
-| 2        | 2              | 2        | Kelas B    | Selasa 14:00-16:00 |
-
-### 8. **Tabel `mahasiswa_kelas`**
-Tabel ini menghubungkan mahasiswa dengan kelas yang mereka ambil, sehingga kita tahu siapa saja mahasiswa yang terdaftar dalam sebuah kelas.
-
-| id_mahasiswa | id_kelas |
-|--------------|----------|
-| 1            | 1        |
-| 2            | 2        |
-
----
-
-### **Relasi Antar Tabel**:
-1. **Tabel `login`** memiliki relasi **1 ke 1** dengan **Tabel `user`**.
-2. **Tabel `user`** memiliki relasi **1 ke 1** dengan **Tabel `mahasiswa`** atau **Tabel `dosen`** (berdasarkan role yang ada).
-3. **Tabel `dosen`** memiliki relasi **1 ke banyak** dengan **Tabel `mata_kuliah`** (1 dosen dapat mengajar banyak mata kuliah).
-4. **Tabel `mata_kuliah`** memiliki relasi **banyak ke banyak** dengan **Tabel `kelas`**.
-5. **Tabel `kelas`** memiliki relasi **banyak ke banyak** dengan **Tabel `mahasiswa`** melalui **Tabel `mahasiswa_kelas`**.
-
-### **Proses Login dan Role:**
-- Saat pengguna melakukan login, berdasarkan informasi pada **Tabel `login`**, aplikasi akan menentukan role pengguna (apakah mahasiswa atau dosen).
-  - **Jika role = mahasiswa**, maka aplikasi akan mengarahkan pengguna ke halaman mahasiswa.
-  - **Jika role = dosen**, maka aplikasi akan mengarahkan pengguna ke halaman dosen.
-
-Misalnya, setelah login, aplikasi dapat memeriksa nilai **role** pada tabel **login** dan kemudian menggunakan **id_user** untuk mengarahkan pengguna ke halaman yang sesuai.
-
----
-
-Ini adalah struktur dasar yang menghubungkan login, register, user, mahasiswa, dosen, kelas, dan mata kuliah, serta mengelola login berdasarkan role (mahasiswa atau dosen).
-
-------------------------------------------------------------------------
 
 Berikut adalah contoh skrip SQL untuk membuat tabel di PostgreSQL menggunakan `psql` (PostgreSQL CLI). Struktur tabel ini sesuai dengan skenario yang Anda minta:
 
-### Membuat Tabel `users`
+// ### Membuat Tabel `users` ✔
 ```sql
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
@@ -117,9 +29,9 @@ CREATE TABLE users (
 
 ### Membuat Tabel `mahasiswa`
 ```sql
-CREATE TABLE mahasiswa (
+CREATE TABLE mahasiswa ( ✔
     id SERIAL PRIMARY KEY,
-    user_id INT NOT NULL,
+    // user_id INT NOT NULL,
     nama VARCHAR(255) NOT NULL,
     nim VARCHAR(50) UNIQUE NOT NULL,
     jurusan VARCHAR(255),
@@ -129,11 +41,11 @@ CREATE TABLE mahasiswa (
 );
 ```
 
-### Membuat Tabel `dosen`
+### Membuat Tabel `dosen` ✔
 ```sql
 CREATE TABLE dosen (
     id SERIAL PRIMARY KEY,
-    user_id INT NOT NULL,
+    // user_id INT NOT NULL,
     nama VARCHAR(255) NOT NULL,
     nidn VARCHAR(50) UNIQUE NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -142,33 +54,33 @@ CREATE TABLE dosen (
 );
 ```
 
-### Membuat Tabel `mata_kuliah`
+### Membuat Tabel `mata_kuliah` ✔
 ```sql
 CREATE TABLE mata_kuliah (
     id SERIAL PRIMARY KEY,
     kode VARCHAR(50) UNIQUE NOT NULL,
     nama VARCHAR(255) NOT NULL,
-    dosen_id INT NOT NULL,
+    // dosen_id INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (dosen_id) REFERENCES dosen(id) ON DELETE CASCADE
 );
 ```
 
-### Membuat Tabel `kelas`
+### Membuat Tabel `kelas` ✔
 ```sql
 CREATE TABLE kelas (
     id SERIAL PRIMARY KEY,
     kode VARCHAR(50) UNIQUE NOT NULL,
     nama VARCHAR(255) NOT NULL,
-    mata_kuliah_id INT NOT NULL,
+    // mata_kuliah_id INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (mata_kuliah_id) REFERENCES mata_kuliah(id) ON DELETE CASCADE
 );
 ```
 
-### Membuat Tabel Relasi `kelas_mahasiswa`
+### Membuat Tabel Relasi `kelas_mahasiswa` ✔
 ```sql
 CREATE TABLE kelas_mahasiswa (
     id SERIAL PRIMARY KEY,
@@ -189,6 +101,7 @@ CREATE TABLE kelas_mahasiswa (
 
 Skrip ini dapat Anda eksekusi langsung di PostgreSQL CLI. Jika Anda memiliki kebutuhan tambahan atau pertanyaan, beri tahu saya! 😊
 
+------------------------------------------------------------------------
 ------------------------------------------------------------------------
 Step:
 

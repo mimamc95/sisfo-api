@@ -2,24 +2,18 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('MataKuliahs', {
+    await queryInterface.createTable('kelasMahasiswas', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      kode: {
+      kelasId: {
         type: Sequelize.INTEGER
       },
-      nama: {
-        type: Sequelize.STRING
-      },
-      dosenId: {
+      mahasiswaId: {
         type: Sequelize.INTEGER
-      },
-      fakultas: {
-        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -32,6 +26,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('MataKuliahs');
+    await queryInterface.dropTable('kelasMahasiswas');
   }
 };
